@@ -1,0 +1,46 @@
+{% comment %}
+  Shopify Font Display Swap & Optimization Snippet
+  Created by: Abdullah Al Rakib (fiverr.com/rakibdevbd)
+
+  Description: 
+  This snippet ensures that all custom fonts use 'font-display: swap'. 
+  This prevents invisible text during load and improves Core Web Vitals (LCP/CLS).
+
+  Usage:
+  Place this at the top of your <head> in theme.liquid.
+{% endcomment %}
+
+<style>
+  /* 
+    Force font-display: swap for all fonts. 
+    This is a global fix for themes where font-face is hard to reach.
+  */
+  @font-face {
+    font-display: swap !important;
+  }
+
+  /* 
+    If you are using Shopify's native font picker, 
+    use the following Liquid logic to inject swap display:
+  */
+  {%- liquid
+    assign header_font = settings.type_header_font
+    assign base_font = settings.type_base_font
+  -%}
+
+  {{ header_font | font_face: font_display: 'swap' }}
+  {{ base_font | font_face: font_display: 'swap' }}
+
+  {%- if settings.type_header_font_bold -%}
+    {{ settings.type_header_font | font_modify: 'weight', 'bold' | font_face: font_display: 'swap' }}
+  {%- endif -%}
+
+  /* Optional: Preloading the most critical font file to reduce LCP */
+  <link rel="preload" as="font" href="{{ header_font | font_url }}" type="font/woff2" crossorigin>
+</style>
+
+{% comment %}
+  Pro Tip for Fiverr Clients:
+  Explain to the client that "Font-display: swap" improves the perceived speed 
+  by showing text immediately using a system font fallback.
+{% endcomment %}

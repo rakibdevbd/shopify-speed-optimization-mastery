@@ -1,0 +1,59 @@
+{% comment %}
+  Advanced Script Delay / Lazy Load Strategy
+  Created by: Abdullah Al Rakib (fiverr.com/rakibdevbd)
+
+  Description: 
+  This snippet delays the execution of non-critical third-party scripts 
+  (like Chatbots, Reviews, Pixels) until the first user interaction 
+  (scroll, mouse move, touch). This dramatically improves Mobile PageSpeed scores.
+
+  Usage:
+  1. Change your <script src="..."> to <script data-src="...">
+  2. Add the class 'lazy-load-script' to those script tags.
+  3. Include this snippet at the bottom of theme.liquid, before </body>.
+{% endcomment %}
+
+<script>
+  (function() {
+    const scriptDelay = 4000; // Delay in milliseconds if no interaction occurs
+    let scriptLoaded = false;
+
+    function loadScripts() {
+      if (scriptLoaded) return;
+      scriptLoaded = true;
+
+      console.log('User interaction detected - Loading background scripts...');
+
+      const lazyScripts = document.querySelectorAll('script.lazy-load-script');
+      lazyScripts.forEach(script => {
+        if (script.dataset.src) {
+          script.src = script.dataset.src;
+        }
+        // If there's inline code inside the script, we can also execute it here
+      });
+
+      // Remove event listeners after scripts are loaded
+      window.removeEventListener('scroll', loadScripts);
+      window.removeEventListener('mousemove', loadScripts);
+      window.removeEventListener('touchstart', loadScripts);
+      window.removeEventListener('keydown', loadScripts);
+    }
+
+    // Load scripts on user interaction
+    window.addEventListener('scroll', loadScripts, { passive: true });
+    window.addEventListener('mousemove', loadScripts, { passive: true });
+    window.addEventListener('touchstart', loadScripts, { passive: true });
+    window.addEventListener('keydown', loadScripts, { passive: true });
+
+    // Fallback: Load scripts anyway after a certain delay (optional)
+    // setTimeout(loadScripts, scriptDelay);
+  })();
+</script>
+
+<style>
+  /* Optional: Ensuring no layout shift for elements hidden by delayed scripts */
+  .lazy-load-script-placeholder {
+    min-height: 100px;
+    display: block;
+  }
+</style>

@@ -1,0 +1,42 @@
+{% comment %}
+  Shopify DNS Prefetch & Preconnect Snippet
+  Created by: Abdullah Al Rakib (fiverr.com/rakibdevbd)
+
+  Description: 
+  This snippet helps the browser establish early connections to third-party 
+  domains (Google Fonts, Apps, Analytics). This reduces latency and improves 
+  overall page load speed.
+
+  Usage:
+  Include this snippet inside the <head> tag of your theme.liquid file:
+  {% render 'dns-prefetch' %}
+{% endcomment %}
+
+<!-- Speed up Shopify CDN -->
+<link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.shopify.com">
+
+<!-- Speed up Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://fonts.gstatic.com">
+
+<!-- Speed up Google Analytics & Tag Manager -->
+<link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.google-analytics.com">
+<link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+<!-- Speed up Facebook Pixel -->
+<link rel="preconnect" href="https://connect.facebook.net" crossorigin>
+<link rel="dns-prefetch" href="https://connect.facebook.net">
+
+<!-- Common Shopify Apps (Klaviyo, Judge.me, etc.) -->
+<link rel="preconnect" href="https://static.klaviyo.com" crossorigin>
+<link rel="dns-prefetch" href="https://static.klaviyo.com">
+<link rel="preconnect" href="https://cdn.judgeme.com" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.judgeme.com">
+
+<!-- Preload Critical Assets (Optional: Add your main CSS file here) -->
+<link rel="preload" href="{{ 'theme.css' | asset_url }}" as="style">

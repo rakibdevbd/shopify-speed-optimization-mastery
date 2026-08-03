@@ -1,0 +1,57 @@
+{% comment %}
+  Shopify Image Optimization Snippet (Advanced srcset & Lazy Loading)
+  Created by: Abdullah Al Rakib (fiverr.com/rakibdevbd)
+
+  Description: 
+  This snippet generates responsive images using srcset and sizes attributes. 
+  It ensures that the browser only downloads the smallest necessary image 
+  based on the user's screen size.
+
+  Usage:
+  {% render 'image-optimization', 
+     image: product.featured_image, 
+     alt: product.title, 
+     classes: 'custom-class-name' 
+  %}
+{% endcomment %}
+
+{%- liquid
+  assign image_widths = '180,360,540,720,900,1080,1296,1512,1728,2048' | split: ','
+  assign image_alt = alt | default: image.alt | escape
+-%}
+
+<div class="optimized-image-wrapper" style="position: relative; overflow: hidden;">
+  <img
+    srcset="
+      {%- for width in image_widths -%}
+        {%- assign width_num = width | plus: 0 -%}
+        {%- if image.width >= width_num -%}
+          {{ image | image_url: width: width_num }} {{ width }}w,
+        {%- endif -%}
+      {%- endfor -%}
+      {{ image | image_url }} {{ image.width }}w
+    "
+    src="{{ image | image_url: width: 720 }}"
+    sizes="(min-width: 1200px) 50vw, (min-width: 750px) 100vw, 100vw"
+    alt="{{ image_alt }}"
+    class="{{ classes }}"
+    loading="lazy"
+    decoding="async"
+    width="{{ image.width }}"
+    height="{{ image.height }}"
+    style="max-width: 100%; height: auto; object-fit: cover;"
+  >
+</div>
+
+<style>
+  /* Preventing Layout Shift (CLS) */
+  .optimized-image-wrapper img {
+    transition: opacity 0.3s ease;
+  }
+  .optimized-image-wrapper img[loading="lazy"] {
+    opacity: 0;
+  }
+  .optimized-image-wrapper img.lazyloaded {
+    opacity: 1;
+  }
+</style>
