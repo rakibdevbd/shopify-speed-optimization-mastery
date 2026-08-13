@@ -13,7 +13,7 @@ Developed and maintained by **Abdullah Al Rakib**, Professional Shopify Develope
 I am **Abdullah Al Rakib**, a professional Shopify Developer and Theme Customization expert. I specialize in helping Shopify merchants scale their businesses by providing high-quality, conversion-optimized, and lightning-fast Shopify stores.
 
 *   **Fiverr:** [fiverr.com/rakibdevbd](https://www.fiverr.com/rakibdevbd)
-*   **LinkedIn:** [linkedin.com/in/abdullahalrakib-fbd](https://www.linkedin.com/in/abdullah-al-rakib-fbd/)
+*   **LinkedIn:** [linkedin.com/in/rakibdevbd](https://www.linkedin.com/in/abdullah-al-rakib-fbd/)
 *   **Email:** [abdullahalrakib.fbd@gmail.com](mailto:abdullahalrakib.fbd@gmail.com)
 
 ---
